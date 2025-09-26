@@ -15,12 +15,14 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "user")
 public class User implements UserDetails {
     @Id
     @GeneratedValue
-    private int id;
+    private long id;
 
+    private String displayName;
+
+    @Column(unique=true)
     private String email;
 
     private String password;

@@ -10,22 +10,26 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+import java.util.Optional;
+
 @CrossOrigin(origins = "http://localhost:5173/")
-@RequestMapping("/api")
 @RequiredArgsConstructor
+@RestController
 public class AuthenticationController {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
 
-    @PostMapping("/signup")
+    @PostMapping("/api/signup")
     public ResponseEntity<String> signup(@RequestBody SignupRequest request) {
         var user = User.builder()
+                .displayName(request.getDisplayName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
@@ -36,7 +40,7 @@ public class AuthenticationController {
         return ResponseEntity.ok("User created with email: " + user.getEmail());
     }
 
-    @PostMapping("/login")
+    @PostMapping("/api/login")
     public ResponseEntity<String> signup(@RequestBody LoginRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -49,5 +53,13 @@ public class AuthenticationController {
 
         String jwtToken = jwtService.generateToken(user);
         return ResponseEntity.ok(jwtToken);
+    }
+
+    @GetMapping("/api/user")
+    public ResponseEntity<User> user() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Optional<User> user = userRepository.findByEmail(auth.getName());
+        System.out.println(auth.getName());
+        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

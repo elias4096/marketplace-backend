@@ -5,32 +5,34 @@ import com.fontys.backend.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-@RestController
-@RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:5173/")
 @RequiredArgsConstructor
+@RestController
 public class ItemController {
     private final ItemRepository itemRepository;
 
-    @GetMapping("/items")
-    private List<Item> getItems() {
+    @GetMapping("/api/items")
+    private Iterable<Item> getItems() {
         return itemRepository.findAll();
     }
 
-    @PostMapping("/items")
+    @GetMapping("/api/user/items")
+    private Iterable<Item> getUserItems(@RequestBody long userId) {
+        return itemRepository.findAllBySellerUserId(userId);
+    }
+
+    @PostMapping("/api/items")
     private Item createItem(@RequestBody Item item) {
         return itemRepository.save(item);
     }
 
-    @PutMapping("/items")
+    @PutMapping("/api/items")
     private Item updateItem(@RequestBody Item item) {
         return itemRepository.save(item);
     }
 
-    @DeleteMapping("/items")
-    private void deleteItem(@RequestBody int itemID) {
+    @DeleteMapping("/api/items")
+    private void deleteItem(@RequestBody long itemID) {
         itemRepository.deleteById(itemID);
     }
 }

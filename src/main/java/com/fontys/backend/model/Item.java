@@ -3,17 +3,17 @@ package com.fontys.backend.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Getter
-@Setter
-@Builder
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "item")
 public class Item {
-    @Id
-    @GeneratedValue
-    private int id;
+    @Id @GeneratedValue
+    private long id;
+
+    private long sellerUserId;
+
+    private String sellerDisplayName;
 
     private String title;
 
@@ -21,11 +21,13 @@ public class Item {
 
     private double price;
 
-    @Enumerated(EnumType.STRING)
-    private Category category;
+    // Todo: /api/categories & /api/locations
 
-    @Enumerated(EnumType.STRING)
-    private Location location;
+//    @Enumerated(EnumType.STRING)
+//    private Category category;
+//
+//    @Enumerated(EnumType.STRING)
+//    private Location location;
 
     // Todo: store images.
 }

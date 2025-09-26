@@ -35,7 +35,13 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         // Public endpoints
-                        .requestMatchers("/welcome", "/api/login", "/api/signup", "/api/items").permitAll()
+                        .requestMatchers(
+                                "/api/login",
+                                "/api/signup",
+                                "/api/items",
+                                "/api/static/categories",
+                                "/api/static/conditions")
+                        .permitAll()
 
                         // Role-based endpoints
                         .requestMatchers("/api/user/**").hasAuthority("USER")
@@ -76,7 +82,6 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        //Make the below setting as * to allow connection from any hos
         corsConfiguration.setAllowedOrigins(List.of("http://localhost:5173"));
         corsConfiguration.setAllowedMethods(List.of("GET", "POST"));
         corsConfiguration.setAllowCredentials(true);
