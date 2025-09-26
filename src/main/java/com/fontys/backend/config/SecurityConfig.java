@@ -35,7 +35,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         // Public endpoints
-                        .requestMatchers("/welcome", "/api/login", "/api/signup").permitAll()
+                        .requestMatchers("/welcome", "/api/login", "/api/signup", "/api/items").permitAll()
 
                         // Role-based endpoints
                         .requestMatchers("/api/user/**").hasAuthority("USER")
