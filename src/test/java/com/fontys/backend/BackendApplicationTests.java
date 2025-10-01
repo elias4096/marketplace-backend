@@ -1,8 +1,5 @@
 package com.fontys.backend;
 
-import com.fontys.backend.controller.AuthenticationController;
-import com.fontys.backend.model.User;
-import com.fontys.backend.repository.UserRepository;
 import com.fontys.backend.request.SignupRequest;
 import com.fontys.backend.service.JwtService;
 import com.fontys.backend.service.SimpleService;
