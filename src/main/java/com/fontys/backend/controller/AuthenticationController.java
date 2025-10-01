@@ -7,6 +7,7 @@ import com.fontys.backend.request.LoginRequest;
 import com.fontys.backend.request.SignupRequest;
 import com.fontys.backend.service.JwtService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 @CrossOrigin(origins = "http://localhost:5173/")
 @RequiredArgsConstructor
@@ -28,6 +30,15 @@ public class AuthenticationController {
 
     @PostMapping("/api/signup")
     public ResponseEntity<String> signup(@RequestBody SignupRequest request) {
+        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Email already in use.");
+        }
+
+        if (!Pattern.matches("^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$", request.getEmail()))
+        {
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Invalid email address.");
+        }
+
         var user = User.builder()
                 .displayName(request.getDisplayName())
                 .email(request.getEmail())
@@ -37,7 +48,7 @@ public class AuthenticationController {
 
         userRepository.save(user);
 
-        return ResponseEntity.ok("User created with email: " + user.getEmail());
+        return ResponseEntity.ok("Signup successful.");
     }
 
     @PostMapping("/api/login")

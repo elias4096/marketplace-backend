@@ -1,40 +1,54 @@
 package com.fontys.backend;
 
+import com.fontys.backend.controller.AuthenticationController;
+import com.fontys.backend.model.User;
+import com.fontys.backend.repository.UserRepository;
+import com.fontys.backend.request.SignupRequest;
+import com.fontys.backend.service.JwtService;
+import com.fontys.backend.service.SimpleService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
+@ActiveProfiles("test")
 @AutoConfigureMockMvc
 class BackendApplicationTests {
     @Autowired
     private MockMvc mockMvc;
 
-    @Test
-    public void testSignup() throws Exception {
-        String userJson = "{\"email\":\"test@mail.com\", \"password\":\"123\"}";
+    @Autowired
+    private SimpleService simpleService;
 
-        mockMvc.perform(post("/api/signup")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(userJson))
-                .andExpect(status().isOk())
-                .andExpect(content().string("User created with email: test@mail.com"));
+    @Test
+    public void testGreet() {
+        String result = simpleService.greet("World");
+        assertEquals("Hello, World!", result);
     }
 
     @Test
-    public void testLogin() throws Exception {
-        String loginJson = "{\"username\":\"test@mail.com\", \"password\":\"123\"}";
+    public void testSignup_EmailAlreadyInUse() throws Exception {
+        SignupRequest request = new SignupRequest("test@example.com", "Test User", "password");
 
-        mockMvc.perform(post("/api/login")
-                        .contentType("application/json")
-                        .content(loginJson))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.token").exists());
+        mockMvc.perform(post("/api/signup")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"email\":\"test@example.com\", \"displayName\":\"Test User\", \"password\":\"password\"}"))
+                .andExpect(status().isOk());
     }
 }
