@@ -1,7 +1,6 @@
 package com.fontys.backend;
 
 import com.fontys.backend.request.SignupRequest;
-import com.fontys.backend.service.JwtService;
 import com.fontys.backend.service.SimpleService;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
