@@ -1,0 +1,43 @@
+name: CI/CD Pipeline                             # The display name of this workflow
+
+# define global environment variables
+env:
+  PROJECT_IMAGE_NAME: project-name
+
+on:                                              # Events that trigger the workflow
+  push:
+    branches: [ "main" ]                        # Run on pushes to the main branch
+  pull_request:
+    branches: [ "main" ]                        # Also run on PRs targeting the main branch
+
+jobs:                                            # Define all the jobs in this workflow
+  test:
+    name: Unit Test                             # Friendly name for this job
+    runs-on: ubuntu-latest                      # The runner VM to use
+    steps:                                      # Ordered list of steps in this job
+      - name: Checkout code                     # Step name
+        uses: actions/checkout@v3               # – Use official action to clone the repo
+
+      - name: Set up JDK 21                     # Step to install Java
+        uses: actions/setup-java@v3             # – Official Java setup action
+        with:
+          java-version: '24'                    # – Specify Java 21
+          distribution: 'temurin'               # – Use the Temurin (Adoptium) build
+
+      - name: Cache Gradle packages              # Speed up builds by caching Gradle
+        uses: actions/cache@v3                  # – Official cache action
+        with:
+          path: ~/.gradle                       # – Directory to cache
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/build.gradle*') }}
+          # – Cache key: OS + hash of build files
+          restore-keys: ${{ runner.os }}-gradle
+          # – Fallback cache key on OS only
+
+      - name: Make gradlew executable            # Ensure the wrapper is runnable
+        run: chmod +x gradlew                   # – Grant execute permissions
+
+      - name: Build with Gradle                  # Compile & assemble the project
+        run: ./gradlew build --no-daemon        # – Run Gradle build without daemon
+
+      - name: Run Tests                          # Execute unit tests
+        run: ./gradlew test --no-daemon         # – Run tests without starting a daemon
