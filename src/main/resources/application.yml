@@ -1,11 +1,12 @@
 spring:
   datasource:
-    url: ${DATABASE_URL}
-    username: ${DATABASE_USERNAME}
-    password: ${DATABASE_PASSWORD}
+    url: jdbc:mysql://localhost:3306/marketplacedb
+    username: elias
+    password: 1324
   jpa:
     hibernate:
       # Recreate database on every run.
+      # Options: none, validate, update, create, create-drop
       ddl-auto: create-drop
     # Enable SQL logging
     show-sql: true
