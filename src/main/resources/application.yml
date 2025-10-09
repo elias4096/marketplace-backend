@@ -1,7 +1,7 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/marketplacedb
-    username: elias
+    url: jdbc:mysql://localhost:3300/marketplacedb
+    username: root
     password: 1324
   jpa:
     hibernate:

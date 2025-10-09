@@ -3,15 +3,45 @@ package com.fontys.marketplace_backend;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+// Note to self: -p [host port]:[container port] (maps container port to host port)
+
+/*
+--- Solution - Dockerfile ---
+
+FROM amazoncorretto:17
+ADD target/back-end.jar /opt/app.jar
+CMD ["java", "-jar", "/opt/app.jar"]
+
+--- Solution - build and run ---
+
+# maven build the project
+$ cd back-end
+$ mvn verify
+
+# Build the image and 'tag' it with the name 'back-end'
+$ docker build -t back-end .
+
+# Run it by image-name and give the container also the name 'back-end'
+# port bind host port 10000 to container port 8080 where payara runs.
+$ docker run -d --rm --name back-end -p 10000:8080 back-end
+
+--- Solution - Stopping the container ---
+
+# Clean stop
+docker stop back-end
+#or just stop and remove
+docker rm -f back-end
+ */
+
 /* Useful commands:
  * Build project:
  * ./gradlew assemble
  *
- * Build, run tests & static code analysis:
- * ./gradlew build
+ * Test project:
+ * ./gradlew test
  *
- * See docker images:
- * docker images
+ * Build and test:
+ * ./gradlew build
  *
  * Build docker image:
  * docker build -t marketplace-backend .
@@ -22,7 +52,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Stop container
  * docker stop marketplace-backend
  *
- * Build and run sonarqube docker image:
+ * MySQL docker:
+ * docker run --name mysql -p 3300:3306 -e MYSQL_ROOT_PASSWORD=1324 -d mysql
+ *
+ * SonarQube docker:
  * docker run --name sonarqube -p 9000:9000 sonarqube:community
  *
  * Run sonarqube
