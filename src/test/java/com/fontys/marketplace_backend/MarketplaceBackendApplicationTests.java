@@ -8,7 +8,7 @@ class MarketplaceBackendApplicationTests {
 
 	@Test
 	void contextLoads() {
-        assert(true);
+        assert(false);
 	}
 
 }
