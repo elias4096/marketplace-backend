@@ -19,6 +19,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Run image:
  * docker run -p 9090:8080 marketplace-backend
  *
+ * Build and run sonarqube docker image:
+ * docker run --name sonarqube -p 9000:9000 sonarqube:community
+ *
  * Run sonarqube (local project)
  * gradlew sonar -Dsonar.projectKey=MarketplaceBackend -Dsonar.projectName='MarketplaceBackend' -Dsonar.host.url=http://localhost:9000 -Dsonar.token=sqp_9d2188f05b43e17ea715a8a920fd586c13f4e876
  */
