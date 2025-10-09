@@ -16,8 +16,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Build docker image:
  * docker build -t marketplace-backend .
  *
- * Run image:
+ * Run container:
  * docker run -p 9090:8080 marketplace-backend
+ *
+ * Stop container
+ * docker stop marketplace-backend
  *
  * Build and run sonarqube docker image:
  * docker run --name sonarqube -p 9000:9000 sonarqube:community
