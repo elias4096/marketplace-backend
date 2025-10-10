@@ -10,14 +10,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
+@SpringBootTest(classes = MarketplaceBackendApplication.class)
 @AutoConfigureMockMvc
 class MarketplaceBackendApplicationTests {
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    public void alwaysOk() {
+    public void alwaysOk() throws Exception {
         assert true;
     }
 
