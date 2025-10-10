@@ -15,7 +15,7 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
-    private static final String JWT_SECRET = "d7dd480e0e700bc07398221ba0bf64d32883190edf89e128f81b08bfd831d7a5";
+    private static final String JWT_SECRET = System.getenv("MARKETPLACE_JWT_SECRET");
 
     public String generateToken(UserDetails userDetails) {
         return generateToken(new HashMap<>(), userDetails);
