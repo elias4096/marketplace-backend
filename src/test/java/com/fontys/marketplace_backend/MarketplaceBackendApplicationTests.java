@@ -32,9 +32,9 @@ class MarketplaceBackendApplicationTests {
                         .content("{\"displayName\":\"test123\", \"email\":\"test@example.com\", \"password\":\"password123\"}"))
                 .andExpect(status().isOk());
 
-//        mockMvc.perform(post("/login")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content("{\"email\":\"test@example.com\", \"password\":\"password123\"}"))
-//                .andExpect(status().isOk());
+        mockMvc.perform(post("/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"email\":\"test@example.com\", \"password\":\"password123\"}"))
+                .andExpect(status().isOk());
     }
 }
