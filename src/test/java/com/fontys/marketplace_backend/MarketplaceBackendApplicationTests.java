@@ -18,7 +18,7 @@ class MarketplaceBackendApplicationTests {
 
     @Test
     public void alwaysOk() {
-        assert (true);
+        assert true;
     }
 
     @Test
