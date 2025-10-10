@@ -17,9 +17,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.security.web.csrf.CsrfTokenRepository;
-import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -53,15 +50,6 @@ public class WebSecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
-    }
-
-    private CsrfTokenRepository csrfTokenRepository() {
-        // Create a new HttpSessionCsrfTokenRepository
-        HttpSessionCsrfTokenRepository repository = new HttpSessionCsrfTokenRepository();
-        // Set the session attribute name for the CSRF token
-        repository.setSessionAttributeName("_csrf");
-        // Return the repository
-        return repository;
     }
 
     @Bean
