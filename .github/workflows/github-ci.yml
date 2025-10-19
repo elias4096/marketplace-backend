@@ -26,6 +26,7 @@ jobs:
           java-version: '24'
           distribution: 'temurin'
 
+      # Start MySQL service and create database
       - name: Start MySQL
         run: |
           sudo systemctl start mysql

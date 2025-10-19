@@ -53,7 +53,7 @@ docker rm -f back-end
  * docker stop marketplace-backend
  *
  * MySQL docker:
- * docker run --name mysql -p 3300:3306 -e MYSQL_ROOT_PASSWORD=1324 -d mysql
+ * docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -d mysql
  *
  * SonarQube docker:
  * docker run --name sonarqube -p 9000:9000 sonarqube:community
