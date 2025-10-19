@@ -64,9 +64,7 @@ docker rm -f back-end
 
 @SpringBootApplication
 public class MarketplaceBackendApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(MarketplaceBackendApplication.class, args);
 	}
-
 }

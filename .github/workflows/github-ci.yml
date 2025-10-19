@@ -11,8 +11,8 @@ jobs:
 
     env:
           DB_DATABASE: marketplacedb
-          DB_USER: root
-          DB_PASSWORD: root
+          MARKETPLACE_DB_USERNAME: root
+          MARKETPLACE_DB_PASSWORD: root
 
     steps:
       # Download code to the runner
