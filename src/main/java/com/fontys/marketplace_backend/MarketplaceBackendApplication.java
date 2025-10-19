@@ -3,7 +3,7 @@ package com.fontys.marketplace_backend;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-// Note to self: -p [host port]:[container port] (maps container port to host port)
+// Note: -p [host port]:[container port] (maps container port to host port)
 
 /*
  * Build project:
