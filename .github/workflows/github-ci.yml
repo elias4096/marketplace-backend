@@ -9,29 +9,23 @@ jobs:
   Test:
     runs-on: ubuntu-latest
 
-    # Todo: add jwt secret
-    env:
-          DB_DATABASE: marketplacedb
-          MARKETPLACE_DB_USERNAME: root
-          MARKETPLACE_DB_PASSWORD: root
-
     steps:
       # Download code to the runner
       - name: Checkout code
         uses: actions/checkout@v4
 
       # Set what Java version the runner should use
-      - name: Set up JDK 24
+      - name: Set up JDK 21
         uses: actions/setup-java@v4
         with:
-          java-version: '24'
+          java-version: '21'
           distribution: 'temurin'
 
       # Start MySQL service and create database
       - name: Start MySQL
         run: |
           sudo systemctl start mysql
-          mysql -e "CREATE DATABASE IF NOT EXISTS $DB_DATABASE;" -u$MARKETPLACE_DB_USERNAME -p$MARKETPLACE_DB_PASSWORD
+          mysql -e "CREATE DATABASE IF NOT EXISTS marketplacedb;" -u${{ secrets.MARKETPLACE_DB_USERNAME }} -p${{ secrets.MARKETPLACE_DB_PASSWORD }}
 
       # Give runner executable permission for gradlew
       - name: Make gradlew executable
