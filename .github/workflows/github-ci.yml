@@ -8,19 +8,12 @@ on:
 jobs:
   Test:
     runs-on: ubuntu-latest
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_ROOT_PASSWORD: 1324
-          MYSQL_DATABASE: marketplacedb
-        ports:
-          - 3306:3306
-        options: >-
-          --health-cmd="mysqladmin ping --silent"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=3
+
+    env:
+          DB_DATABASE: marketplacedb
+          DB_USER: root
+          DB_PASSWORD: root
+
     steps:
       # Download code to the runner
       - name: Checkout code
@@ -32,6 +25,11 @@ jobs:
         with:
           java-version: '24'
           distribution: 'temurin'
+
+      - name: Start MySQL
+        run: |
+          sudo /etc/init.d/mysql start
+          mysql -e "CREATE DATABASE IF NOT EXISTS $DB_DATABASE;" -u$DB_USER -p$DB_PASSWORD
 
       # Give runner executable permission for gradlew
       - name: Make gradlew executable
