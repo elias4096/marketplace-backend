@@ -10,8 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-          MARKETPLACE_DB_USERNAME: root
-          MARKETPLACE_DB_PASSWORD: root
+          MARKETPLACE_DB_USERNAME: ${{ secrets.MARKETPLACE_DB_USERNAME }}
+          MARKETPLACE_DB_PASSWORD: ${{ secrets.MARKETPLACE_DB_PASSWORD }}
+          MARKETPLACE_JWT_SECRET: ${{ secrets.MARKETPLACE_JWT_SECRET }}
 
     steps:
       # Download code to the runner
@@ -29,7 +30,7 @@ jobs:
       - name: Start MySQL
         run: |
           sudo systemctl start mysql
-          mysql -e "CREATE DATABASE IF NOT EXISTS marketplacedb;" -u$MARKETPLACE_DB_USERNAME -p${{ secrets.MARKETPLACE_DB_PASSWORD }}
+          mysql -e "CREATE DATABASE IF NOT EXISTS marketplacedb;" -u$MARKETPLACE_DB_USERNAME -p$MARKETPLACE_DB_PASSWORD
 
       # Give runner executable permission for gradlew
       - name: Make gradlew executable
