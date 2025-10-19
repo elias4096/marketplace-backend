@@ -9,6 +9,7 @@ jobs:
   Test:
     runs-on: ubuntu-latest
 
+    # Todo: add jwt secret
     env:
           DB_DATABASE: marketplacedb
           MARKETPLACE_DB_USERNAME: root
