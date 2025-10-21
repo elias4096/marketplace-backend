@@ -1,3 +1,8 @@
+# Run in background:
+# docker compose up -d
+
+name: marketplace-project
+
 services:
   watchtower:
     container_name: watchtower
@@ -21,6 +26,12 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  sonarqube:
+    image: sonarqube:community
+    container_name: marketplace-sonarqube
+    ports:
+      - "9000:9000"
 
   marketplace-backend:
     container_name: marketplace-backend
