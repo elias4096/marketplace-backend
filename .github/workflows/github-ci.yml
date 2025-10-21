@@ -22,7 +22,13 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build with Gradle
-        run: ./gradlew assemble
+        run: ./gradlew build
+
+      - name: Upload JAR
+        uses: actions/upload-artifact@v3
+        with:
+          name: marketplace-backend
+          path: build/libs/*.jar
 
   test:
     needs: build
@@ -58,6 +64,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Download JAR
+        uses: actions/download-artifact@v3
+        with:
+          name: marketplace-backend
+          path: build/libs
 
       - name: Setup docker buildx
         uses: docker/setup-buildx-action@v2
