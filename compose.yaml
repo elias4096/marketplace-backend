@@ -1,5 +1,21 @@
 services:
+  mysql:
+    container_name: mysql-server
+    image: mysql:latest
+    restart: always
+    expose:
+      - 3306
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: "marketplacedb"
+      MYSQL_ROOT_PASSWORD: "root"
+    networks:
+      - marketplace
+
   marketplace-backend:
+    depends_on:
+      - mysql
     container_name: marketplace-backend
     image: bryrmiginte/marketplace-backend:latest
     restart: always
@@ -9,3 +25,9 @@ services:
       - MARKETPLACE_DB_USERNAME=${MARKETPLACE_DB_USERNAME}
       - MARKETPLACE_DB_PASSWORD=${MARKETPLACE_DB_PASSWORD}
       - MARKETPLACE_JWT_SECRET=${MARKETPLACE_JWT_SECRET}
+    networks:
+      - marketplace
+      
+networks:
+  marketplace:
+    driver: bridge
