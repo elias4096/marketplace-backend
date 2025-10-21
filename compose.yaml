@@ -22,6 +22,7 @@ services:
     ports:
       - 8080:8080
     environment:
+      - MARKETPLACE_DB_URL=jdbc:mysql://mysql:3306/marketplacedb
       - MARKETPLACE_DB_USERNAME=${MARKETPLACE_DB_USERNAME}
       - MARKETPLACE_DB_PASSWORD=${MARKETPLACE_DB_PASSWORD}
       - MARKETPLACE_JWT_SECRET=${MARKETPLACE_JWT_SECRET}
