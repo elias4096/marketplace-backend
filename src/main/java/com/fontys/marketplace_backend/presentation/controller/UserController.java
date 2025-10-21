@@ -20,6 +20,11 @@ public class UserController {
 
     private final JwtService jwtService;
 
+    @GetMapping("/hello")
+    public ResponseEntity<String> hello() {
+        return ResponseEntity.ok("Hello, world!");
+    }
+
     @PostMapping("/signup")
     public ResponseEntity<User> signup(@RequestBody SignupRequest request) {
         User registeredUser = authenticationService.signup(request);
