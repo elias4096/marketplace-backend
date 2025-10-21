@@ -20,9 +20,9 @@ public class UserController {
 
     private final JwtService jwtService;
 
-    @GetMapping("/hello")
-    public ResponseEntity<String> hello() {
-        return ResponseEntity.ok("Hello, world!");
+    @GetMapping("/")
+    public ResponseEntity<String> root() {
+        return ResponseEntity.ok("Welcome to the Marketplace Backend.");
     }
 
     @PostMapping("/signup")

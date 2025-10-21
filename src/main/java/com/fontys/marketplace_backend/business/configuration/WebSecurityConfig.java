@@ -24,7 +24,7 @@ public class WebSecurityConfig {
                 http
                                 .authorizeHttpRequests(requests -> requests
                                                 .requestMatchers(
-                                                                "/hello",
+                                                                "/",
                                                                 "/signup",
                                                                 "/login",
                                                                 "/user",
