@@ -22,7 +22,7 @@ public class UserController {
 
     @GetMapping("/")
     public ResponseEntity<String> root() {
-        return ResponseEntity.ok("Welcome to the Marketplace Backend.");
+        return ResponseEntity.ok("Welcome to the root.");
     }
 
     @PostMapping("/signup")
