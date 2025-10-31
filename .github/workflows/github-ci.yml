@@ -59,7 +59,7 @@ jobs:
       - name: Run tests
         run: ./gradlew test
 
-  deploy:
+  publish:
     needs: test
     runs-on: ubuntu-latest
     steps:
