@@ -1,5 +1,9 @@
 package com.fontys.marketplace_backend.persistence.entity;
 
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,13 +24,18 @@ public class Item {
 
     private String title;
 
+    @Lob
+    @Column(length = 512)
     private String description;
 
     private Double price;
 
-    // @Enumerated(EnumType.STRING)
-    // private Category category;
-    //
-    // @Enumerated(EnumType.STRING)
-    // private Location location;
+    private String category;
+
+    private String quality;
+
+    private String location;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
 }
