@@ -1,4 +1,4 @@
-FROM openjdk:25
+FROM openjdk:24
 
 COPY build/libs/marketplace-backend-0.0.1-SNAPSHOT.jar marketplace-backend.jar
 
