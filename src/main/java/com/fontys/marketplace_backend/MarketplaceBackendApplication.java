@@ -6,7 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 // Note: -p [host port]:[container port] (maps container port to host port)
 
 /*
- * Build project:
+ * gradlew bootRun
+ * 
+ *  Build project:
  * ./gradlew assemble
  *
  * Test project:

@@ -27,6 +27,12 @@ services:
       timeout: 5s
       retries: 5
 
+  marketplace-frontend:
+    container_name: marketplace-frontend
+    image: bryrmiginte/marketplace-frontend:latest
+    ports:
+      - 80:80
+
   marketplace-backend:
     container_name: marketplace-backend
     image: bryrmiginte/marketplace-backend:latest
