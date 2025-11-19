@@ -32,6 +32,7 @@ public class WebSecurityConfig {
                                                                 "/items/{itemId}",
                                                                 "/items",
                                                                 "/images",
+                                                                "/{imageName:.+}",
                                                                 "/images/{imageName:.+}",
                                                                 "/static/categories",
                                                                 "/static/conditions")
