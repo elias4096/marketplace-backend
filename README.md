@@ -1,0 +1,1 @@
+![alt text](documentation/system-architecture.png)
