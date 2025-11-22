@@ -9,7 +9,7 @@ import com.fontys.marketplace_backend.persistence.entity.Category;
 import com.fontys.marketplace_backend.persistence.entity.Condition;
 
 @RestController
-@CrossOrigin(origins = { "http://localhost:5173/", "http://localhost/", "http://localhost:80/" })
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class StaticController {
     @GetMapping("/static/categories")

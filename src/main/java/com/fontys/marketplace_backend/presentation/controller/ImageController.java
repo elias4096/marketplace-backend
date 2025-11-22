@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@CrossOrigin(origins = { "http://localhost:5173/", "http://localhost/", "http://localhost:80/" })
+@CrossOrigin(origins = "*")
 @RequestMapping("/images")
 public class ImageController {
     @GetMapping("/{imageName:.+}")

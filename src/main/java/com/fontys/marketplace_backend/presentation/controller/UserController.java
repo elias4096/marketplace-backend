@@ -13,7 +13,7 @@ import com.fontys.marketplace_backend.persistence.requests.SignupRequest;
 import com.fontys.marketplace_backend.persistence.response.LoginResponse;
 
 @RestController
-@CrossOrigin(origins = { "http://localhost:5173/", "http://localhost/", "http://localhost:80/" })
+@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class UserController {
     private final AuthenticationService authenticationService;
