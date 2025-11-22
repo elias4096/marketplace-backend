@@ -11,8 +11,7 @@ import com.fontys.marketplace_backend.persistence.repository.ItemRepository;
 import com.fontys.marketplace_backend.persistence.requests.DeleteItemRequest;
 
 @RestController
-@RequestMapping("/items")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin
 @RequiredArgsConstructor
 public class ItemController {
     private final ItemRepository itemRepository;
