@@ -44,9 +44,15 @@ public class ImageController {
             @RequestParam("itemId") Integer itemId,
             @RequestParam("image") MultipartFile image) {
         String fileName = itemId.toString() + ".png";
-        String filePath = System.getProperty("user.dir") + "/images" + File.separator + fileName;
+        String imagesDir = System.getProperty("user.dir") + File.separator + "images";
+        String filePath = imagesDir + File.separator + fileName;
 
         try {
+            File directory = new File(imagesDir);
+            if (!directory.exists()) {
+                directory.mkdir();
+            }
+
             FileOutputStream fout = new FileOutputStream(filePath);
             fout.write(image.getBytes());
             fout.close();
@@ -56,4 +62,5 @@ public class ImageController {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
+
 }
