@@ -13,7 +13,7 @@ import com.fontys.marketplace_backend.persistence.requests.SignupRequest;
 import com.fontys.marketplace_backend.persistence.response.LoginResponse;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequiredArgsConstructor
 public class UserController {
     private final AuthenticationService authenticationService;
