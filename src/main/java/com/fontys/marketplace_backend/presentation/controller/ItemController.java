@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import com.fontys.marketplace_backend.persistence.entity.Item;
 import com.fontys.marketplace_backend.persistence.repository.ItemRepository;
-import com.fontys.marketplace_backend.persistence.requests.DeleteItemRequest;
 
 @RestController
 @CrossOrigin
@@ -16,7 +15,7 @@ import com.fontys.marketplace_backend.persistence.requests.DeleteItemRequest;
 public class ItemController {
     private final ItemRepository itemRepository;
 
-    @GetMapping("/{itemId}")
+    @GetMapping("/items/{itemId}")
     Optional<Item> getItemById(@PathVariable Integer itemId) {
         return itemRepository.findById(itemId);
     }
