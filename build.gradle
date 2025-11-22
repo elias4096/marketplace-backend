@@ -7,10 +7,9 @@ plugins {
 
 sonar {
     properties {
-        property "sonar.projectName", "MarketplaceBackend"
-        property "sonar.projectKey", "MarketplaceBackend"
+        property "sonar.projectName", "marketplacebackend"
+        property "sonar.projectKey", "marketplacebackend"
         property "sonar.host.url", "http://localhost:9000"
-        property "sonar.token", "sqp_9d2188f05b43e17ea715a8a920fd586c13f4e876"
     }
 }
 

@@ -11,7 +11,7 @@ services:
       - WATCHTOWER_CLEANUP=true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    command: --interval 30 marketplace-backend
+    command: --interval 30 marketplace-backend marketplace-frontend
 
   mysql:
     container_name: marketplace-mysql
@@ -31,7 +31,7 @@ services:
     container_name: marketplace-frontend
     image: bryrmiginte/marketplace-frontend:latest
     ports:
-      - 80:80
+      - 5173:5173
 
   marketplace-backend:
     container_name: marketplace-backend
