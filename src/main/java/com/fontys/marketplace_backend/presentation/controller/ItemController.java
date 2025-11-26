@@ -2,10 +2,9 @@ package com.fontys.marketplace_backend.presentation.controller;
 
 import lombok.RequiredArgsConstructor;
 
-import java.util.Optional;
-
 import org.springframework.web.bind.annotation.*;
 
+import com.fontys.marketplace_backend.NotFoundException;
 import com.fontys.marketplace_backend.persistence.entity.Item;
 import com.fontys.marketplace_backend.persistence.repository.ItemRepository;
 
@@ -16,8 +15,9 @@ public class ItemController {
     private final ItemRepository itemRepository;
 
     @GetMapping("/items/{itemId}")
-    Optional<Item> getItemById(@PathVariable Integer itemId) {
-        return itemRepository.findById(itemId);
+    Item getItemById(@PathVariable Integer itemId) {
+        return itemRepository.findById(itemId)
+                .orElseThrow(NotFoundException::new);
     }
 
     @GetMapping("/items")
@@ -42,6 +42,9 @@ public class ItemController {
 
     @DeleteMapping("/user/items/{itemId}")
     void deleteItem(@PathVariable Integer itemId) {
-        itemRepository.deleteById(itemId);
+        Item item = itemRepository.findById(itemId)
+                .orElseThrow(NotFoundException::new);
+
+        itemRepository.delete(item);
     }
 }
