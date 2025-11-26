@@ -13,12 +13,12 @@ import com.fontys.marketplace_backend.persistence.entity.Condition;
 @RequiredArgsConstructor
 public class StaticController {
     @GetMapping("/static/categories")
-    private Category[] getCategories() {
+    Category[] getCategories() {
         return Category.values();
     }
 
     @GetMapping("/static/conditions")
-    private Condition[] getConditions() {
+    Condition[] getConditions() {
         return Condition.values();
     }
 }

@@ -23,8 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 public class ImageController {
     @GetMapping("/{imageName:.+}")
     public ResponseEntity<Resource> get(@PathVariable("imageName") String imageName) {
-        // Todo: check type and size of image.
-
         String filePath = System.getProperty("user.dir") + "/images" + File.separator + imageName;
         File file = new File(filePath);
 
@@ -47,20 +45,16 @@ public class ImageController {
         String imagesDir = System.getProperty("user.dir") + File.separator + "images";
         String filePath = imagesDir + File.separator + fileName;
 
-        try {
+        try (FileOutputStream fout = new FileOutputStream(filePath)) {
             File directory = new File(imagesDir);
             if (!directory.exists()) {
                 directory.mkdir();
             }
 
-            FileOutputStream fout = new FileOutputStream(filePath);
             fout.write(image.getBytes());
-            fout.close();
-
             return ResponseEntity.ok().body("File Uploaded Successfully");
         } catch (Exception e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
-
 }
