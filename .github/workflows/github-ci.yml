@@ -59,6 +59,19 @@ jobs:
       - name: Run tests
         run: ./gradlew test
 
+  sonarcloud:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Static code analysis
+        uses: SonarSource/sonarcloud-github-action@master
+        with:
+          args: >-
+            -Dsonar.projectKey=elias4096_marketplace-backend
+            -Dsonar.host.url=https://sonarcloud.io
+
   publish:
     needs: test
     runs-on: ubuntu-latest
