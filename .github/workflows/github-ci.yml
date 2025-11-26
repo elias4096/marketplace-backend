@@ -87,7 +87,7 @@ jobs:
       - name: Analyze with SonarQube
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./gradlew sonar -Dsonar.java.binaries=build/classes/java/main --info
+        run: ./gradlew sonar -Dsonar.java.binaries=build/classes/java/main/com/fontys/marketplace-backend --info
 
   publish:
     needs: sonarqube
