@@ -66,12 +66,17 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          
       - name: Cache SonarQube packages
         uses: actions/cache@v4
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
+
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
       - name: Analyze with SonarQube
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
