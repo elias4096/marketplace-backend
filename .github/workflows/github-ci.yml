@@ -73,6 +73,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: marketplace-backend
+          path: build/libs
           
       - name: Cache SonarQube packages
         uses: actions/cache@v4
@@ -87,7 +88,7 @@ jobs:
       - name: Analyze with SonarQube
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./gradlew sonar -Dsonar.java.binaries=build/classes/java/main/com/fontys/marketplace-backend --info
+        run: ./gradlew sonar -Dsonar.java.binaries=build/libs --info
 
   publish:
     needs: sonarqube
@@ -100,6 +101,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: marketplace-backend
+          path: build/libs
 
       - name: Setup docker buildx
         uses: docker/setup-buildx-action@v2
