@@ -62,7 +62,7 @@ class MarketplaceBackendApplicationTests {
     @Order(3)
     void testGetItems() throws Exception {
         mockMvc.perform(get("/items")
-                .header("Authorization", "Bearer " + bearerToken)
+                // .header("Authorization", "Bearer " + bearerToken)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{}"))
                 .andExpect(status().isOk());
