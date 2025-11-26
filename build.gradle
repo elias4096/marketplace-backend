@@ -6,11 +6,10 @@ plugins {
 }
 
 sonar {
-    properties {
-        property "sonar.projectName", "marketplacebackend"
-        property "sonar.projectKey", "marketplacebackend"
-        property "sonar.host.url", "http://localhost:9000"
-    }
+  properties {
+    property "sonar.projectKey", "elias4096_marketplace-backend"
+    property "sonar.organization", "elias4096"
+  }
 }
 
 group = 'com.fontys'
