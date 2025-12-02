@@ -1,6 +1,8 @@
 package com.fontys.marketplace_backend.presentation.controller;
 
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,6 +13,9 @@ import com.fontys.marketplace_backend.persistence.entity.User;
 import com.fontys.marketplace_backend.persistence.requests.LoginRequest;
 import com.fontys.marketplace_backend.persistence.requests.SignupRequest;
 import com.fontys.marketplace_backend.persistence.response.LoginResponse;
+
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 // @CrossOrigin(origins = { "http://localhost:5173", "http://localhost:80" })
@@ -34,18 +39,27 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<String> login(@RequestBody LoginRequest request, HttpServletResponse response) {
         User authenticatedUser = authenticationService.authenticate(request);
 
         String token = jwtService.generateToken(authenticatedUser);
 
-        LoginResponse loginResponse = LoginResponse.builder().token(token).build();
+        Cookie cookie = new Cookie("authToken", token);
+        cookie.setPath("/");
+        cookie.setHttpOnly(true);
+        cookie.setMaxAge(3600);
+        response.addCookie(cookie);
 
-        return ResponseEntity.ok(loginResponse);
+        return ResponseEntity.ok("Login successful");
     }
 
     @GetMapping("/user")
-    public ResponseEntity<User> authenticatedUser() {
+    public ResponseEntity<User> authenticatedUser(
+            @CookieValue(value = "authToken") String authToken) {
+        if (authToken == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         User currentUser = (User) authentication.getPrincipal();
