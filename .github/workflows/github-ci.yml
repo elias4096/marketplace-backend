@@ -31,8 +31,7 @@ jobs:
           path: |
             build/libs/*.jar
             build/classes/java/main/**/*
-
-
+  
   test:
     needs: build
     runs-on: ubuntu-latest
@@ -59,8 +58,14 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x gradlew
 
-      - name: Run tests
-        run: ./gradlew test
+      - name: Run tests with JaCoCo
+        run: ./gradlew test jacocoTestReport
+
+      - name: Upload JaCoCo report
+        uses: actions/upload-artifact@v4
+        with:
+          name: jacoco-report
+          path: build/reports/jacoco/test
 
   sonarqube:
     needs: test
@@ -79,6 +84,12 @@ jobs:
           name: marketplace-backend
           path: build/libs
           
+      - name: Download JaCoCo report
+        uses: actions/download-artifact@v4
+        with:
+          name: jacoco-report
+          path: build/reports/jacoco/test
+
       - name: Cache SonarQube packages
         uses: actions/cache@v4
         with:
@@ -88,9 +99,6 @@ jobs:
 
       - name: Make gradlew executable
         run: chmod +x gradlew
-
-      - name: Generate code coverage report
-        run: ./gradlew build jacocoTestReport
 
       - name: Analyze with SonarQube
         run: ./gradlew sonar -Dsonar.java.binaries=build/libs -Dsonar.jacoco.reportPaths=build/reports/jacoco/test/jacocoTestReport.xml --info
