@@ -1,9 +1,8 @@
 package com.fontys.marketplace_backend.presentation.controller;
 
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.IOException;
 
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -17,43 +16,41 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fontys.marketplace_backend.business.service.ImageService;
+
+import lombok.RequiredArgsConstructor;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/images")
+@RequiredArgsConstructor
 public class ImageController {
+    private final ImageService imageService;
+
     @GetMapping("/{imageName:.+}")
     public ResponseEntity<Resource> get(@PathVariable("imageName") String imageName) {
         String filePath = System.getProperty("user.dir") + "/images" + File.separator + imageName;
-        File file = new File(filePath);
 
-        if (file.exists()) {
-            Resource resource = new FileSystemResource(file);
-            return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + file.getName() + "\"")
-                    .contentType(MediaType.IMAGE_PNG)
-                    .body(resource);
-        } else {
+        Resource resource = imageService.readImage(filePath);
+
+        if (resource == null) {
             return ResponseEntity.notFound().build();
         }
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + imageName + ".png" + "\"")
+                .contentType(MediaType.IMAGE_PNG)
+                .body(resource);
     }
 
     @PostMapping
     public ResponseEntity<String> post(
             @RequestParam("itemId") Integer itemId,
             @RequestParam("image") MultipartFile image) {
-        String fileName = itemId.toString() + ".png";
-        String imagesDir = System.getProperty("user.dir") + File.separator + "images";
-        String filePath = imagesDir + File.separator + fileName;
-
-        try (FileOutputStream fout = new FileOutputStream(filePath)) {
-            File directory = new File(imagesDir);
-            if (!directory.exists()) {
-                directory.mkdir();
-            }
-
-            fout.write(image.getBytes());
+        try {
+            imageService.writeImage(itemId, image);
             return ResponseEntity.ok().body("File Uploaded Successfully");
-        } catch (Exception e) {
+        } catch (IOException e) {
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
