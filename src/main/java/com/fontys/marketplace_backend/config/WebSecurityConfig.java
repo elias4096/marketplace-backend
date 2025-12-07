@@ -1,4 +1,4 @@
-package com.fontys.marketplace_backend.business.configuration;
+package com.fontys.marketplace_backend.config;
 
 import lombok.RequiredArgsConstructor;
 

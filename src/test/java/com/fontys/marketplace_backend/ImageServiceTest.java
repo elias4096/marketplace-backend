@@ -12,10 +12,11 @@ import java.io.IOException;
 
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.fontys.marketplace_backend.service.ImageService;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import com.fontys.marketplace_backend.business.service.ImageService;
 
 class ImageServiceTest {
     private ImageService imageService;

@@ -1,16 +1,17 @@
-package com.fontys.marketplace_backend.presentation.controller;
+package com.fontys.marketplace_backend.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import com.fontys.marketplace_backend.business.service.AuthenticationService;
-import com.fontys.marketplace_backend.business.service.JwtService;
+
 import com.fontys.marketplace_backend.persistence.entity.User;
 import com.fontys.marketplace_backend.persistence.requests.LoginRequest;
 import com.fontys.marketplace_backend.persistence.requests.SignupRequest;
 import com.fontys.marketplace_backend.persistence.response.LoginResponse;
+import com.fontys.marketplace_backend.service.AuthenticationService;
+import com.fontys.marketplace_backend.service.JwtService;
 
 @RestController
 // @CrossOrigin(origins = { "http://localhost:5173", "http://localhost:80" })

@@ -1,4 +1,4 @@
-package com.fontys.marketplace_backend.business.service;
+package com.fontys.marketplace_backend.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

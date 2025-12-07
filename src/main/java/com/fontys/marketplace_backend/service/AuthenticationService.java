@@ -1,4 +1,4 @@
-package com.fontys.marketplace_backend.business.service;
+package com.fontys.marketplace_backend.service;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
