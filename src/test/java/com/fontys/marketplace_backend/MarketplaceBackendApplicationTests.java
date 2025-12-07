@@ -4,10 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -29,26 +27,15 @@ class MarketplaceBackendApplicationTests {
 
         Item buildTestItem() {
                 return Item.builder()
-                                .id(null)
                                 .sellerUserId(1)
-                                .sellerDisplayName("Seller")
-                                .title("Test item")
+                                .sellerDisplayName("Test seller")
+                                .title("Test item title")
                                 .description("Test item description")
-                                .price(15.0)
+                                .price(8.0)
                                 .category("Electronics")
-                                .location("Rotterdam")
                                 .quality("New")
-                                .createdAt(null)
+                                .location("Rotterdam")
                                 .build();
-        }
-
-        @Autowired
-        private Environment env;
-
-        @Test
-        void testProfileActive() {
-                String[] profiles = env.getActiveProfiles();
-                System.out.println("Active profiles: " + java.util.Arrays.toString(profiles));
         }
 
         @Test
@@ -73,15 +60,12 @@ class MarketplaceBackendApplicationTests {
                                 .getResponse()
                                 .getContentAsString();
 
-                Item result = new ObjectMapper()
+                Item value = new ObjectMapper()
                                 .registerModule(new JavaTimeModule())
                                 .readValue(json, Item.class);
 
-                int id = result.getId();
-
-                mockMvc.perform(get("/items/{itemId}", id)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content("{}"))
+                mockMvc.perform(get("/items/{itemId}", value.getId())
+                                .contentType(MediaType.APPLICATION_JSON))
                                 .andExpect(status().isOk());
         }
 
@@ -98,20 +82,16 @@ class MarketplaceBackendApplicationTests {
                                 .getResponse()
                                 .getContentAsString();
 
-                Item result = new ObjectMapper()
+                Item value = new ObjectMapper()
                                 .registerModule(new JavaTimeModule())
                                 .readValue(json, Item.class);
 
-                int id = result.getId();
-
-                mockMvc.perform(delete("/user/items/{itemId}", id)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content("{}"))
+                mockMvc.perform(delete("/user/items/{itemId}", value.getId())
+                                .contentType(MediaType.APPLICATION_JSON))
                                 .andExpect(status().isOk());
 
-                mockMvc.perform(get("/items/{itemId}", id)
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content("{}"))
+                mockMvc.perform(get("/items/{itemId}", value.getId())
+                                .contentType(MediaType.APPLICATION_JSON))
                                 .andExpect(status().is4xxClientError());
         }
 }

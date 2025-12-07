@@ -1,7 +1,7 @@
 /.idea
 /.vscode
 /.gradle
-**/build/
+/.scannerwork
+/build
 /bin
 /images
-/.scannerwork
