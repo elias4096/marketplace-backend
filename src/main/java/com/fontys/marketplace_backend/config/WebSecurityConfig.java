@@ -33,9 +33,7 @@ public class WebSecurityConfig {
                                                                 "/items",
                                                                 "/images",
                                                                 "/{imageName:.+}",
-                                                                "/images/{imageName:.+}",
-                                                                "/static/categories",
-                                                                "/static/conditions")
+                                                                "/images/{imageName:.+}")
                                                 .permitAll()
                                                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                                                 .anyRequest().authenticated())
