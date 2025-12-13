@@ -11,3 +11,7 @@ Backend: added a image service for the image controller.
 Backend: added unit tests for image service.
 Backend: tests now uses H2 database.
 Frontend: using getByTestId for finding elements in e2d testing.
+
+2025-12-17:
+Frontend/Backend: added implementation of item edit button.
+Frontend/Backend: added simple version of a chat system using websockets.
