@@ -13,9 +13,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-@Configuration
-@EnableWebSecurity
 @RequiredArgsConstructor
+@EnableWebSecurity
+@Configuration
 public class WebSecurityConfig {
         private final AuthenticationProvider authenticationProvider;
         private final JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -29,8 +29,8 @@ public class WebSecurityConfig {
                                                                 "/signup",
                                                                 "/login",
                                                                 "/user",
-                                                                "/items/{itemId}",
                                                                 "/items",
+                                                                "/items/{itemId}",
                                                                 "/images",
                                                                 "/{imageName:.+}",
                                                                 "/images/{imageName:.+}")

@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.fontys.marketplace_backend.persistence.ChatMessage;
 
+@CrossOrigin(origins = { "http://localhost:5173", "http://localhost:80" })
 @Controller
-@CrossOrigin
 public class ChatController {
     @MessageMapping("/sendMessage")
     @SendTo("/topic/public")

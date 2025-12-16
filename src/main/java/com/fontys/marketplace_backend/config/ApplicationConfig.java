@@ -7,15 +7,15 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.fontys.marketplace_backend.exceptions.NotFoundException;
 import com.fontys.marketplace_backend.persistence.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
-@Configuration
 @RequiredArgsConstructor
+@Configuration
 public class ApplicationConfig {
     private final UserRepository userRepository;
 
@@ -34,7 +34,7 @@ public class ApplicationConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> userRepository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                .orElseThrow(NotFoundException::new);
     }
 
     @Bean

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,14 +19,13 @@ import com.fontys.marketplace_backend.service.ImageService;
 
 import lombok.RequiredArgsConstructor;
 
-@RestController
-@CrossOrigin
-@RequestMapping("/images")
 @RequiredArgsConstructor
+@CrossOrigin(origins = { "http://localhost:5173", "http://localhost:80" })
+@RestController
 public class ImageController {
     private final ImageService imageService;
 
-    @GetMapping("/{imageName:.+}")
+    @GetMapping("images/{imageName:.+}")
     public ResponseEntity<Resource> get(@PathVariable("imageName") String imageName) {
         String filePath = System.getProperty("user.dir") + "/images" + File.separator + imageName;
 
@@ -43,7 +41,7 @@ public class ImageController {
                 .body(resource);
     }
 
-    @PostMapping
+    @PostMapping("/images")
     public ResponseEntity<String> post(
             @RequestParam("itemId") Integer itemId,
             @RequestParam("image") MultipartFile image) {

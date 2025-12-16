@@ -1,4 +1,4 @@
-package com.fontys.marketplace_backend;
+package com.fontys.marketplace_backend.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -7,9 +7,5 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class NotFoundException extends RuntimeException {
     public NotFoundException() {
         super();
-    }
-
-    public NotFoundException(final String message) {
-        super(message);
     }
 }
