@@ -12,7 +12,7 @@ import com.fontys.marketplace_backend.persistence.entity.Item;
 import com.fontys.marketplace_backend.persistence.repository.ItemRepository;
 
 @RequiredArgsConstructor
-@CrossOrigin(origins = { "http://localhost:5173", "http://localhost:80" })
+@CrossOrigin
 @RestController
 public class ItemController {
     private final ItemRepository itemRepository;

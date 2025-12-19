@@ -14,7 +14,7 @@ import com.fontys.marketplace_backend.service.AuthenticationService;
 import com.fontys.marketplace_backend.service.JwtService;
 
 @RequiredArgsConstructor
-@CrossOrigin(origins = { "http://localhost:5173", "http://localhost:80" })
+@CrossOrigin
 @RestController
 public class UserController {
     private final AuthenticationService authenticationService;
