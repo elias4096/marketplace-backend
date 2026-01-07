@@ -71,7 +71,7 @@ public class ItemController {
     }
 
     @DeleteMapping("/user/items/{itemId}")
-    void deleteItem(@PathVariable Integer itemId) {
+    void deleteItem(@PathVariable("itemId") Integer itemId) {
         itemRepository.deleteById(itemId);
     }
 }
