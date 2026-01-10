@@ -20,7 +20,7 @@ import com.fontys.marketplace_backend.service.ImageService;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-@CrossOrigin
+@CrossOrigin(origins = { "http://localhost:5173", "http://localhost" })
 @RestController
 public class ImageController {
     private final ImageService imageService;
