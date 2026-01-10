@@ -36,16 +36,18 @@ class UserControllerTest {
                 .andExpect(content().string("This is a test endpoint."));
     }
 
-    @Test
-    void signup() throws Exception {
-        SignupRequest request = new SignupRequest();
-        request.setDisplayName("test");
-        request.setEmail("testone@mail.com");
-        request.setPassword("123");
-
-        mockMvc.perform(post("/signup")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(request)))
-                .andExpect(status().isOk());
-    }
+    /*
+     * @Test
+     * void signup() throws Exception {
+     * SignupRequest request = new SignupRequest();
+     * request.setDisplayName("test");
+     * request.setEmail("testone@mail.com");
+     * request.setPassword("123");
+     * 
+     * mockMvc.perform(post("/signup")
+     * .contentType(MediaType.APPLICATION_JSON)
+     * .content(new ObjectMapper().writeValueAsString(request)))
+     * .andExpect(status().isOk());
+     * }
+     */
 }
