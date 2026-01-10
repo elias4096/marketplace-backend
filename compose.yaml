@@ -31,7 +31,7 @@ services:
     container_name: marketplace-frontend
     image: bryrmiginte/marketplace-frontend:latest
     ports:
-      - 80:80
+      - 4173:4173
 
   marketplace-backend:
     container_name: marketplace-backend
