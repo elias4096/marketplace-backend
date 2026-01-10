@@ -13,11 +13,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fontys.marketplace_backend.persistence.entity.Item;
 import com.fontys.marketplace_backend.persistence.repository.ItemRepository;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -65,6 +67,38 @@ class MarketplaceBackendApplicationTests {
 
                 boolean exists = itemRepository.findAllBySellerDisplayName("testPostItems").iterator().hasNext();
                 assertTrue(exists, "Item should be saved and retrievable by seller display name");
+        }
+
+        @Test
+        @WithMockUser
+        void testPutItems() throws Exception {
+                Item originalItem = buildTestItem();
+                originalItem.setSellerDisplayName("testPutItem");
+                itemRepository.save(originalItem);
+
+                Item modifiedItem = buildTestItem();
+                modifiedItem.setTitle("This is an updated title");
+                modifiedItem.setDescription("This is an updated description");
+                modifiedItem.setPrice(123.0);
+                modifiedItem.setCategory("Toys");
+                modifiedItem.setQuality("Destroyed");
+                modifiedItem.setLocation("Trollhättan");
+
+                mockMvc.perform(put("/items/{itemId}", originalItem.getId())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(new ObjectMapper().writeValueAsString(modifiedItem)))
+                                .andExpect(status().isOk());
+
+                Item updatedItem = itemRepository.findById(originalItem.getId())
+                                .orElseThrow(() -> new AssertionError("Updated item not found"));
+
+                assertEquals(modifiedItem.getTitle(), updatedItem.getTitle(), "Title was not updated");
+                assertEquals(modifiedItem.getDescription(), updatedItem.getDescription(),
+                                "Description was not updated");
+                assertEquals(modifiedItem.getPrice(), updatedItem.getPrice(), "Price was not updated");
+                assertEquals(modifiedItem.getCategory(), updatedItem.getCategory(), "Category was not updated");
+                assertEquals(modifiedItem.getQuality(), updatedItem.getQuality(), "Quality was not updated");
+                assertEquals(modifiedItem.getLocation(), updatedItem.getLocation(), "Location was not updated");
         }
 
         @Test
