@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestPropertySource("classpath:application-test.properties")
-class MarketplaceBackendApplicationTests {
+class ItemControllerTest {
         @Autowired
         private MockMvc mockMvc;
 
