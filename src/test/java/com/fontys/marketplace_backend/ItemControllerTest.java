@@ -46,17 +46,24 @@ class ItemControllerTest {
         }
 
         @Test
-        @WithMockUser
-        void testGetItems() throws Exception {
-                mockMvc.perform(get("/items")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content("{}"))
+        void get_ShouldReturnOk() throws Exception {
+                mockMvc.perform(get("/items"))
+                                .andExpect(status().isOk());
+        }
+
+        @Test
+        void get_ShouldFindSingleItem() throws Exception {
+                Item testItem = buildTestItem();
+
+                Item item = itemRepository.save(testItem);
+
+                mockMvc.perform(get("/items/{itemId}", item.getId()))
                                 .andExpect(status().isOk());
         }
 
         @Test
         @WithMockUser
-        void testPostItems() throws Exception {
+        void post_ShouldAddItem() throws Exception {
                 Item testItem = buildTestItem();
                 testItem.setSellerDisplayName("testPostItems");
 
@@ -71,7 +78,7 @@ class ItemControllerTest {
 
         @Test
         @WithMockUser
-        void testPutItems() throws Exception {
+        void post_ShouldUpdateAllFields() throws Exception {
                 Item originalItem = buildTestItem();
                 originalItem.setSellerDisplayName("testPutItem");
                 itemRepository.save(originalItem);
@@ -103,7 +110,7 @@ class ItemControllerTest {
 
         @Test
         @WithMockUser
-        void testDeleteItem() throws Exception {
+        void delete_ShouldRemoveItem() throws Exception {
                 Item testItem = buildTestItem();
 
                 Item item = itemRepository.save(testItem);

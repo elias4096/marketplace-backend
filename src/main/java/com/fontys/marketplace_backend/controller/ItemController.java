@@ -7,8 +7,6 @@ import java.util.Optional;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fontys.marketplace_backend.exceptions.NotFoundException;
 import com.fontys.marketplace_backend.persistence.entity.Item;
 import com.fontys.marketplace_backend.persistence.repository.ItemRepository;
@@ -20,7 +18,7 @@ public class ItemController {
     private final ItemRepository itemRepository;
 
     @GetMapping("/items/{itemId}")
-    Item getItemById(@PathVariable Integer itemId) {
+    Item getItemById(@PathVariable("itemId") Integer itemId) {
         return itemRepository.findById(itemId)
                 .orElseThrow(NotFoundException::new);
     }
