@@ -1,5 +1,6 @@
 package com.fontys.marketplace_backend;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -14,9 +15,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fontys.marketplace_backend.persistence.entity.User;
 import com.fontys.marketplace_backend.persistence.repository.UserRepository;
-import com.fontys.marketplace_backend.persistence.requests.LoginRequest;
 import com.fontys.marketplace_backend.persistence.requests.SignupRequest;
 
 @SpringBootTest
@@ -36,18 +35,19 @@ class UserControllerTest {
                 .andExpect(content().string("This is a test endpoint."));
     }
 
-    /*
-     * @Test
-     * void signup() throws Exception {
-     * SignupRequest request = new SignupRequest();
-     * request.setDisplayName("test");
-     * request.setEmail("testone@mail.com");
-     * request.setPassword("123");
-     * 
-     * mockMvc.perform(post("/signup")
-     * .contentType(MediaType.APPLICATION_JSON)
-     * .content(new ObjectMapper().writeValueAsString(request)))
-     * .andExpect(status().isOk());
-     * }
-     */
+    @Test
+    void post_ShouldAddUser() throws Exception {
+        SignupRequest request = new SignupRequest();
+        request.setDisplayName("test");
+        request.setEmail("testone@mail.com");
+        request.setPassword("123");
+
+        mockMvc.perform(post("/signup")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsString(request)))
+                .andExpect(status().isOk());
+
+        boolean exists = repository.findByEmail("testone@mail.com").isPresent();
+        assertTrue(exists, "User should be saved and retrievable by email");
+    }
 }
