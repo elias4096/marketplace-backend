@@ -20,7 +20,7 @@ public class ItemController {
     @GetMapping("/items/{itemId}")
     Item getItemById(@PathVariable("itemId") Integer itemId) {
         return itemRepository.findById(itemId)
-                .orElseThrow(NotFoundException::new);
+                .orElseThrow(() -> new NotFoundException("Item does not exist."));
     }
 
     @GetMapping("/items")
