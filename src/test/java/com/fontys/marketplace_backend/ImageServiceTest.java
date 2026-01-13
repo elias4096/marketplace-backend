@@ -18,21 +18,7 @@ import com.fontys.marketplace_backend.service.ImageService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-/*
-The name of your test should consist of three parts:
-
-    Name of the method being tested
-    Scenario under which the method is being tested
-    Expected behavior when the scenario is invoked
-
-The "Arrange, Act, Assert" pattern is a common approach for writing unit tests.
-As the name implies, the pattern consists of three main tasks:
-
-    Arrange your objects, create, and configure them as necessary
-    Act on an object
-    Assert that something is as expected
-
-*/
+// AAA pattern = Arrange, Act, Assert
 
 class ImageServiceTest {
     private ImageService imageService;

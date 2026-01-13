@@ -3,15 +3,14 @@ package com.fontys.marketplace_backend;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-// Note: -p [host port]:[container port] (maps container port to host port)
-
 /*
- * gradlew bootRun
+ * Run:
+ * ./gradlew bootRun
  * 
- *  Build project:
+ *  Build:
  * ./gradlew assemble
  *
- * Test project:
+ * Test:
  * ./gradlew test
  *
  * Build and test:
@@ -20,6 +19,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Build docker image:
  * docker build -t marketplace-backend .
  *
+ * Note: -p [host port]:[container port] (maps container port to host port)
+ * 
  * Run container:
  * docker run -p 9090:8080 marketplace-backend
  *

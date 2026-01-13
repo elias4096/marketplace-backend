@@ -28,7 +28,7 @@ public class WebSecurityConfig {
                                                                 "/",
                                                                 "/signup",
                                                                 "/login",
-                                                                "/user",
+                                                                // "/user",
                                                                 "/items",
                                                                 "/items/{itemId}",
                                                                 "/images",

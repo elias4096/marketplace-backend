@@ -1,7 +1,6 @@
 package com.fontys.marketplace_backend.controller;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fontys.marketplace_backend.exceptions.NotFoundException;
 import com.fontys.marketplace_backend.service.ImageService;
 
 import lombok.RequiredArgsConstructor;
@@ -32,7 +32,7 @@ public class ImageController {
         Resource resource = imageService.readImage(filePath);
 
         if (resource == null) {
-            return ResponseEntity.notFound().build();
+            throw new NotFoundException("Image does not exist");
         }
 
         return ResponseEntity.ok()
@@ -45,11 +45,7 @@ public class ImageController {
     public ResponseEntity<String> post(
             @RequestParam("itemId") Integer itemId,
             @RequestParam("image") MultipartFile image) {
-        try {
-            imageService.writeImage(itemId, image);
-            return ResponseEntity.ok().body("File Uploaded Successfully");
-        } catch (IOException e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
-        }
+        imageService.writeImage(itemId, image);
+        return ResponseEntity.ok().body("Image uploaded successfully");
     }
 }
