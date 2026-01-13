@@ -28,11 +28,9 @@ public class WebSecurityConfig {
                                                                 "/",
                                                                 "/signup",
                                                                 "/login",
-                                                                // "/user",
                                                                 "/items",
                                                                 "/items/{itemId}",
                                                                 "/images",
-                                                                "/{imageName:.+}",
                                                                 "/images/{imageName:.+}")
                                                 .permitAll()
                                                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()

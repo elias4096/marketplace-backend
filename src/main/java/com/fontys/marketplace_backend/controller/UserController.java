@@ -28,6 +28,8 @@ public class UserController {
     @PostMapping("/signup")
     public ResponseEntity<User> signup(@RequestBody SignupRequest request) {
         User registeredUser = authenticationService.signup(request);
+
+        // Todo: don't return the user, may contain sensitive information.
         return ResponseEntity.ok(registeredUser);
     }
 
@@ -45,6 +47,7 @@ public class UserController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = (User) authentication.getPrincipal();
 
+        // Todo: same as above, may contain sensitive information.
         return ResponseEntity.ok(currentUser);
     }
 }

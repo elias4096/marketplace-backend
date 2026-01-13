@@ -1,5 +1,7 @@
 package com.fontys.marketplace_backend.persistence.entity;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,6 +18,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
+// Note: MySQL reserves 'user' as a keyword.
 @Table(name = "users")
 @Getter
 @Setter
@@ -28,9 +31,11 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private Integer id;
 
+    @NotBlank(message = "Display name cannot be blank")
     @Column(nullable = false)
     private String displayName;
 
+    @Email(message = "Email should be valid")
     @Column(nullable = false, unique = true)
     private String email;
 
