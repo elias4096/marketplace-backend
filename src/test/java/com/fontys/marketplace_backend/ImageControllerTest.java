@@ -40,7 +40,7 @@ class ImageControllerTest {
                 .file(multipartFile)
                 .param("itemId", itemId))
                 .andExpect(status().isOk())
-                .andExpect(content().string("File Uploaded Successfully"));
+                .andExpect(content().string("Image uploaded successfully"));
 
         MvcResult getResult = mockMvc.perform(get("/images/" + itemId + ".png"))
                 .andExpect(status().isOk())
