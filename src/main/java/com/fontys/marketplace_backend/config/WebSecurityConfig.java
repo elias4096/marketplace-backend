@@ -31,7 +31,8 @@ public class WebSecurityConfig {
                                                                 "/items",
                                                                 "/items/{itemId}",
                                                                 "/images",
-                                                                "/images/{imageName:.+}")
+                                                                "/images/{imageName:.+}",
+                                                                "/websocket")
                                                 .permitAll()
                                                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                                                 .anyRequest().authenticated())
